@@ -1,17 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <todo-list :todos="todos"/>
+    <todo-form @on-adding="addTodo"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from './components/TodoList.vue'
+import TodoForm from './components/TodoForm.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TodoList,
+    TodoForm
+  },
+  data() {
+    return {
+      todos: []
+    }
+  },
+  methods: {
+    addTodo(title) {
+      this.todos.push({
+        title
+      });
+    }
   }
 }
 </script>
@@ -21,8 +35,11 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  align-content: center;
   color: #2c3e50;
   margin-top: 60px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
