@@ -1,5 +1,7 @@
 # todo
 
+![demo](./src/assets/demo.gif)
+
 ## Project setup
 ```
 npm install
