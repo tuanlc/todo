@@ -1,7 +1,6 @@
 <template>
   <div class="todo-item">
-    <input type="checkbox" id="checkbox" v-model="todo.done">
-    <label :class="{ checkedItem: todo.done }">{{ todo.title }}</label>
+    <label>{{ todo.title }}</label>
   </div>
 </template>
 
@@ -21,10 +20,5 @@ export default {
     width: 20em;
     height: 2em;
     border: solid gray 1px;
-  }
-
-  .checkedItem {
-    text-decoration: line-through;
-    background-color: yellow;
   }
 </style>
