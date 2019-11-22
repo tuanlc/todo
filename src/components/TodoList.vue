@@ -1,9 +1,11 @@
 <template>
   <div class="todo-list">
     <h2>Todo List</h2>
-    <div v-for="(todo, index) in todos" :key="index">
-      <todo-item v-bind:todo="todo" />
-    </div>
+    <draggable group="people" @start="drag=true" @end="drag=false">
+      <div v-for="(todo, index) in todos" :key="index">
+        <todo-item v-bind:todo="todo" />
+      </div>
+    </draggable>
     <div v-if="!todos.length">
       <p>There is no todo!</p>
     </div>
@@ -12,6 +14,8 @@
 
 <script>
 import TodoItem from './TodoItem.vue';
+import draggable from 'vuedraggable';
+
 
 export default {
   name: 'TodoList',
@@ -22,7 +26,8 @@ export default {
     }
   },
   components: {
-    TodoItem
+    TodoItem,
+    draggable
   },
   data() {
     return {
