@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <draggable class="container" group="categories" @start="drag=true" @end="drag=false">
-      <div v-for="(category, index) in categories" :key="index">
-        <todo-list v-bind:category="category" :todos="todos" />
+    <draggable class="container" group="labels" @start="drag=true" @end="drag=false">
+      <div class="container-item" v-for="(label, index) in labels" :key="index">
+        <todo-list v-bind:label="label" :todos="todos" />
       </div>
     </draggable>
     <todo-form @on-adding="addTodo"/>
@@ -10,9 +10,11 @@
 </template>
 
 <script>
+
+import draggable from 'vuedraggable'
 import TodoList from './components/TodoList.vue'
 import TodoForm from './components/TodoForm.vue'
-import draggable from 'vuedraggable'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'app',
@@ -22,17 +24,20 @@ export default {
     draggable
   },
   data() {
-    return {
-      todos: [],
-      categories: ["Open", "Todo", "Close"]
-    }
+    return {}
   },
   methods: {
-    addTodo(title) {
-      this.todos.push({
-        title
-      });
-    }
+    ...mapActions({
+      addTodo (title) {
+        this.$store.dispatch('addTodo', { title });
+      }
+    })
+  },
+  computed: {
+    ...mapState([
+      "todos",
+      "labels"
+    ])
   }
 }
 </script>
@@ -45,7 +50,7 @@ export default {
   align-content: center;
   color: #2c3e50;
   margin-top: 60px;
-  width: 50%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -53,5 +58,10 @@ export default {
 .container {
   display: flex;
   flex-direction: row;
+}
+
+.container-item {
+  width: 25em;
+  border: solid gray 1px;
 }
 </style>

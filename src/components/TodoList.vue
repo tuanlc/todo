@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list">
-    <h2>{{ category }}</h2>
+    <h2>{{ label }}</h2>
     <draggable group="todos" @start="drag=true" @end="drag=false">
       <div v-for="(todo, index) in todos" :key="index">
         <todo-item v-bind:todo="todo" />
@@ -23,7 +23,7 @@ export default {
       type: Array,
       required: true
     },
-    category: {
+    label: {
       type: String,
       required: true
     }
