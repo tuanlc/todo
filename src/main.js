@@ -10,9 +10,24 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     todos: [],
-    labels: ["Open", "Close"]
+    labels: [{
+      title: "Open",
+      isCategory: true,
+      color: "yellow"
+    }, {
+      title: "Close",
+      isCategory: true,
+      color: "gray"
+    }]
   },
-  getters: {},
+  getters: {
+    categorizedLabels (state) {
+      return state.labels.filter(label => label.isCategory)
+    },
+    labeledTodos: state => (label="Open") => {
+      return state.todos.filter(todo => todo.label === label)
+    }
+  },
   mutations: {
     addTodo (state, todo) {
       todo.id = todo.id || uuidv4()
@@ -22,7 +37,7 @@ const store = new Vuex.Store({
 
       state.todos.push(todo)
     },
-    removeTo (state, id) {
+    removeTodo (state, id) {
       const todo = state.todos.find(todo => todo.id === id)
 
       if (todo) {
@@ -45,8 +60,8 @@ const store = new Vuex.Store({
     addTodo ({ commit }, todo) {
       commit('addTodo', todo)
     },
-    removeTo ({ commit }, id) {
-      commit('removeTo', id)
+    removeTodo ({ commit }, id) {
+      commit('removeTodo', id)
     },
     updateTodo ({ commit }, todo) {
       commit('updateTodo', todo)

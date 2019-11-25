@@ -1,6 +1,7 @@
 <template>
   <div class="todo-item">
     <label>{{ todo.title }}</label>
+    <button v-on:click="removeTodo()">x</button>
   </div>
 </template>
 
@@ -10,6 +11,11 @@ export default {
     todo: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    removeTodo () {
+      this.$store.dispatch('removeTodo', this.todo.id);
     }
   }
 }

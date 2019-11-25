@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <draggable class="container" group="labels" @start="drag=true" @end="drag=false">
-      <div class="container-item" v-for="(label, index) in labels" :key="index">
+      <div class="container-item" v-for="(label, index) in categorizedLabels" :key="index">
         <todo-list v-bind:label="label" :todos="todos" />
       </div>
     </draggable>
-    <todo-form @on-adding="addTodo"/>
   </div>
 </template>
 
@@ -13,30 +12,23 @@
 
 import draggable from 'vuedraggable'
 import TodoList from './components/TodoList.vue'
-import TodoForm from './components/TodoForm.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'app',
   components: {
     TodoList,
-    TodoForm,
     draggable
   },
   data() {
     return {}
   },
-  methods: {
-    ...mapActions({
-      addTodo (title) {
-        this.$store.dispatch('addTodo', { title });
-      }
-    })
-  },
   computed: {
     ...mapState([
-      "todos",
-      "labels"
+      "todos"
+    ]),
+    ...mapGetters([
+      "categorizedLabels"
     ])
   }
 }

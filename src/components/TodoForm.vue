@@ -1,6 +1,5 @@
 <template>
   <form @submit="onSubmit">
-    <p>Add a new task: </p>
     <input placeholder="Enter a todo task" v-model="title" autofocus/>
   </form>
 </template>
@@ -15,6 +14,8 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
+      if (!this.title) return;
+
       this.$emit('on-adding', this.title);
       this.title = '';
     }
