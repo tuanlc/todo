@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list" v-bind:style="{ 'background-color': label.color }">
     <h2>{{ label.title }}</h2>
-    <draggable group="todos" @start="drag=true" @end="drag=false" :move="onMove">
+    <draggable group="todos" :list="labeledTodos" @start="drag=true" @end="drag=false" :move="onMove">
       <div v-for="(todo, index) in labeledTodos" :key="index">
         <todo-item v-bind:todo="todo" />
       </div>
