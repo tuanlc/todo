@@ -1,8 +1,8 @@
 <template>
   <div class="todo-list" v-bind:style="{ 'background-color': label.color }">
     <h2>{{ label.title }}</h2>
-    <draggable group="todos" :list="labeledTodos" @start="drag=true" @end="drag=false" :move="onMove">
-      <div v-for="(todo, index) in labeledTodos" :key="index">
+    <draggable group="todos" :list="labeledTodos" @start="drag=true" @end="drag=false" :move="onMove" :id="label.title">
+      <div v-for="(todo, index) in labeledTodos" :key="index" :id="todo.id">
         <todo-item v-bind:todo="todo" />
       </div>
     </draggable>
@@ -41,12 +41,20 @@ export default {
     }
   },
   methods: {
+    getTodo: function(id) {
+      return this.$store.getters.getTodo(id)
+    },
     addTodo (title) {
       this.$store.dispatch('addTodo', { title, label: this.label.title });
     },
-    onMove (event, originalEvent) {
-      console.log(444, event); //eslint-disable-line
-      console.log(55555, originalEvent); //eslint-disable-line
+    onMove (event) {
+      const toLabel = event.to.id;
+      const todoId = event.dragged.id;
+      const draggedTodo = this.getTodo(todoId);
+
+      draggedTodo.label = toLabel;
+
+      this.$store.dispatch('updateTodo', draggedTodo);
       
       return;
     }

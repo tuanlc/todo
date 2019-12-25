@@ -26,6 +26,9 @@ const store = new Vuex.Store({
     },
     labeledTodos: state => (label="Open") => {
       return state.todos.filter(todo => todo.label === label)
+    },
+    getTodo: state => id => {
+      return state.todos.find(todo => todo.id === id);
     }
   },
   mutations: {
